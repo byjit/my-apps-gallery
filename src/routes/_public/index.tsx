@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { allApps } from "content-collections";
+import { useMemo, useState } from "react";
+import { AboutPanel } from "@/components/gallery/AboutPanel";
 import { AppGrid } from "@/components/gallery/AppGrid";
 
 export const Route = createFileRoute("/_public/")({
@@ -7,23 +9,43 @@ export const Route = createFileRoute("/_public/")({
 });
 
 function GalleryPage() {
-	// Newest first — the gallery is curated chronologically.
-	const apps = [...allApps].sort(
-		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+	const [selectedTag, setSelectedTag] = useState<string | null>(null);
+
+	// Sort newest-first once; derived data (tag list, filtered apps) flows from this.
+	const sortedApps = useMemo(
+		() =>
+			[...allApps].sort(
+				(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+			),
+		[]
+	);
+
+	const tags = useMemo(() => {
+		const set = new Set<string>();
+		for (const app of sortedApps) {
+			for (const tag of app.tags) set.add(tag);
+		}
+		return [...set].sort((a, b) => a.localeCompare(b));
+	}, [sortedApps]);
+
+	const filteredApps = useMemo(
+		() =>
+			selectedTag
+				? sortedApps.filter((app) => app.tags.includes(selectedTag))
+				: sortedApps,
+		[sortedApps, selectedTag]
 	);
 
 	return (
-		<div className="mx-auto max-w-7xl px-6 py-12 sm:py-16">
-			<section className="mb-10 sm:mb-14">
-				<h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-					Apps & Tools
-				</h1>
-				<p className="mt-3 max-w-2xl text-muted-foreground">
-					A gallery of products and free lead-generation tools I've built.
-					Click any card to learn more, or jump straight to the live app.
-				</p>
+		<div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-10 lg:grid-cols-[20rem_1fr] lg:gap-20 lg:py-0">
+			<AboutPanel
+				onTagChange={setSelectedTag}
+				selectedTag={selectedTag}
+				tags={tags}
+			/>
+			<section className="lg:py-12">
+				<AppGrid apps={filteredApps} />
 			</section>
-			<AppGrid apps={apps} />
 		</div>
 	);
 }

@@ -1,1 +1,1 @@
-export const APP_NAME = "Mirage";
+export const APP_NAME = "My Product Gallery";

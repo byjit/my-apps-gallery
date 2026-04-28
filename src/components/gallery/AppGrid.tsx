@@ -15,7 +15,7 @@ export function AppGrid({ apps }: AppGridProps) {
 	}
 
 	return (
-		<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+		<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
 			{apps.map((app, index) => (
 				<AppCard app={app} index={index} key={app.slug} />
 			))}
