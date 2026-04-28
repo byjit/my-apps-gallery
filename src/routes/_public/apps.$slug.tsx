@@ -1,5 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { MDXContent } from "@content-collections/mdx/react";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { allApps } from "content-collections";
 import { format } from "date-fns";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -23,8 +23,8 @@ function AppDetailPage() {
 	return (
 		<article className="mx-auto max-w-4xl px-6 py-12 sm:py-16">
 			<Link
-				to="/"
 				className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+				to="/"
 			>
 				<ArrowLeft className="h-4 w-4" />
 				Back to gallery
@@ -66,8 +66,8 @@ function AppDetailPage() {
 
 			<img
 				alt={app.title}
-				src={app.image}
 				className="mb-10 w-full rounded-2xl ring-1 ring-foreground/10"
+				src={app.image}
 			/>
 
 			<div className="prose prose-neutral dark:prose-invert max-w-none">

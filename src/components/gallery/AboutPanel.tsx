@@ -110,6 +110,17 @@ export function AboutPanel({
 					</a>
 				))}
 			</div>
+			<div>
+				<p>If you need projects built:</p>
+				<a
+					className="text-sm text-primary"
+					href="https://wizardsbuild.com"
+					rel="noopener"
+					target="_blank"
+				>
+					https://wizardsbuild.com
+				</a>
+			</div>
 		</aside>
 	);
 }
