@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "surge-deploy": {
+      "source": "aruntemme/surge-deploy",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "bd7bb011c7f8f6d70fe36075462084394c6500fbf9b750aa94bd190da815e731"
+    }
+  }
+}
