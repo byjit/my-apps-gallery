@@ -45,14 +45,14 @@ const AuthedDashboardRoute = AuthedDashboardRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof LandingIndexRoute
   '/dashboard': typeof AuthedDashboardRoute
   '/login': typeof PublicLoginRoute
-  '/': typeof LandingIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof LandingIndexRoute
   '/dashboard': typeof AuthedDashboardRoute
   '/login': typeof PublicLoginRoute
-  '/': typeof LandingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -65,9 +65,9 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/dashboard' | '/login' | '/'
+  fullPaths: '/' | '/dashboard' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/dashboard' | '/login' | '/'
+  to: '/' | '/dashboard' | '/login'
   id:
     | '__root__'
     | '/_authed'
@@ -89,21 +89,21 @@ declare module '@tanstack/react-router' {
     '/_public': {
       id: '/_public'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof PublicRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_landing': {
       id: '/_landing'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof LandingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authed': {
       id: '/_authed'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AuthedRouteImport
       parentRoute: typeof rootRouteImport
     }

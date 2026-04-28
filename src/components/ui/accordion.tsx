@@ -1,84 +1,83 @@
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import { Accordion as AccordionPrimitive } from "radix-ui";
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import * as React from "react"
+import { Accordion as AccordionPrimitive } from "radix-ui"
+
+import { cn } from "@/lib/utils"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { ArrowDown01Icon, ArrowUp01Icon } from "@hugeicons/core-free-icons"
 
 function Accordion({
-	className,
-	...props
+  className,
+  ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
-	return (
-		<AccordionPrimitive.Root
-			className={cn("flex w-full flex-col", className)}
-			data-slot="accordion"
-			{...props}
-		/>
-	);
+  return (
+    <AccordionPrimitive.Root
+      data-slot="accordion"
+      className={cn(
+        "flex w-full flex-col overflow-hidden rounded-2xl border",
+        className
+      )}
+      {...props}
+    />
+  )
 }
 
 function AccordionItem({
-	className,
-	...props
+  className,
+  ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
-	return (
-		<AccordionPrimitive.Item
-			className={cn("not-last:border-b", className)}
-			data-slot="accordion-item"
-			{...props}
-		/>
-	);
+  return (
+    <AccordionPrimitive.Item
+      data-slot="accordion-item"
+      className={cn("not-last:border-b data-open:bg-muted/50", className)}
+      {...props}
+    />
+  )
 }
 
 function AccordionTrigger({
-	className,
-	children,
-	...props
+  className,
+  children,
+  ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
-	return (
-		<AccordionPrimitive.Header className="flex">
-			<AccordionPrimitive.Trigger
-				className={cn(
-					"focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-md py-4 text-left text-sm font-medium hover:underline focus-visible:ring-[3px] **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-all outline-none disabled:pointer-events-none disabled:opacity-50",
-					className
-				)}
-				data-slot="accordion-trigger"
-				{...props}
-			>
-				{children}
-				<ChevronDownIcon
-					className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
-					data-slot="accordion-trigger-icon"
-				/>
-				<ChevronUpIcon
-					className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
-					data-slot="accordion-trigger-icon"
-				/>
-			</AccordionPrimitive.Trigger>
-		</AccordionPrimitive.Header>
-	);
+  return (
+    <AccordionPrimitive.Header className="flex">
+      <AccordionPrimitive.Trigger
+        data-slot="accordion-trigger"
+        className={cn(
+          "group/accordion-trigger relative flex flex-1 items-start justify-between gap-6 border border-transparent p-4 text-left text-sm font-medium transition-all outline-none hover:underline disabled:pointer-events-none disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground",
+          className
+        )}
+        {...props}
+      >
+        {children}
+        <HugeiconsIcon icon={ArrowDown01Icon} strokeWidth={2} data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
+        <HugeiconsIcon icon={ArrowUp01Icon} strokeWidth={2} data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
+      </AccordionPrimitive.Trigger>
+    </AccordionPrimitive.Header>
+  )
 }
 
 function AccordionContent({
-	className,
-	children,
-	...props
+  className,
+  children,
+  ...props
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) {
-	return (
-		<AccordionPrimitive.Content
-			className="data-open:animate-accordion-down data-closed:animate-accordion-up text-sm overflow-hidden"
-			data-slot="accordion-content"
-			{...props}
-		>
-			<div
-				className={cn(
-					"pt-0 pb-4 [&_a]:hover:text-foreground h-(--radix-accordion-content-height) [&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4",
-					className
-				)}
-			>
-				{children}
-			</div>
-		</AccordionPrimitive.Content>
-	);
+  return (
+    <AccordionPrimitive.Content
+      data-slot="accordion-content"
+      className="overflow-hidden px-4 text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
+      {...props}
+    >
+      <div
+        className={cn(
+          "h-(--radix-accordion-content-height) pt-0 pb-4 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+          className
+        )}
+      >
+        {children}
+      </div>
+    </AccordionPrimitive.Content>
+  )
 }
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }
