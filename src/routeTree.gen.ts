@@ -10,28 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteImport } from './routes/_public'
-import { Route as LandingRouteImport } from './routes/_landing'
 import { Route as AuthedRouteImport } from './routes/_authed'
-import { Route as LandingIndexRouteImport } from './routes/_landing/index'
+import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as PublicLoginRouteImport } from './routes/_public/login'
 import { Route as AuthedDashboardRouteImport } from './routes/_authed/dashboard'
+import { Route as PublicAppsSlugRouteImport } from './routes/_public/apps.$slug'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LandingRoute = LandingRouteImport.update({
-  id: '/_landing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthedRoute = AuthedRouteImport.update({
   id: '/_authed',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LandingIndexRoute = LandingIndexRouteImport.update({
+const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => LandingRoute,
+  getParentRoute: () => PublicRoute,
 } as any)
 const PublicLoginRoute = PublicLoginRouteImport.update({
   id: '/login',
@@ -43,44 +39,50 @@ const AuthedDashboardRoute = AuthedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthedRoute,
 } as any)
+const PublicAppsSlugRoute = PublicAppsSlugRouteImport.update({
+  id: '/apps/$slug',
+  path: '/apps/$slug',
+  getParentRoute: () => PublicRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof LandingIndexRoute
+  '/': typeof PublicIndexRoute
   '/dashboard': typeof AuthedDashboardRoute
   '/login': typeof PublicLoginRoute
+  '/apps/$slug': typeof PublicAppsSlugRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof LandingIndexRoute
+  '/': typeof PublicIndexRoute
   '/dashboard': typeof AuthedDashboardRoute
   '/login': typeof PublicLoginRoute
+  '/apps/$slug': typeof PublicAppsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authed': typeof AuthedRouteWithChildren
-  '/_landing': typeof LandingRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
   '/_authed/dashboard': typeof AuthedDashboardRoute
   '/_public/login': typeof PublicLoginRoute
-  '/_landing/': typeof LandingIndexRoute
+  '/_public/': typeof PublicIndexRoute
+  '/_public/apps/$slug': typeof PublicAppsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login'
+  fullPaths: '/' | '/dashboard' | '/login' | '/apps/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/login'
+  to: '/' | '/dashboard' | '/login' | '/apps/$slug'
   id:
     | '__root__'
     | '/_authed'
-    | '/_landing'
     | '/_public'
     | '/_authed/dashboard'
     | '/_public/login'
-    | '/_landing/'
+    | '/_public/'
+    | '/_public/apps/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AuthedRoute: typeof AuthedRouteWithChildren
-  LandingRoute: typeof LandingRouteWithChildren
   PublicRoute: typeof PublicRouteWithChildren
 }
 
@@ -93,13 +95,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_landing': {
-      id: '/_landing'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof LandingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authed': {
       id: '/_authed'
       path: ''
@@ -107,12 +102,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_landing/': {
-      id: '/_landing/'
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof LandingIndexRouteImport
-      parentRoute: typeof LandingRoute
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRoute
     }
     '/_public/login': {
       id: '/_public/login'
@@ -128,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedDashboardRouteImport
       parentRoute: typeof AuthedRoute
     }
+    '/_public/apps/$slug': {
+      id: '/_public/apps/$slug'
+      path: '/apps/$slug'
+      fullPath: '/apps/$slug'
+      preLoaderRoute: typeof PublicAppsSlugRouteImport
+      parentRoute: typeof PublicRoute
+    }
   }
 }
 
@@ -142,23 +144,16 @@ const AuthedRouteChildren: AuthedRouteChildren = {
 const AuthedRouteWithChildren =
   AuthedRoute._addFileChildren(AuthedRouteChildren)
 
-interface LandingRouteChildren {
-  LandingIndexRoute: typeof LandingIndexRoute
-}
-
-const LandingRouteChildren: LandingRouteChildren = {
-  LandingIndexRoute: LandingIndexRoute,
-}
-
-const LandingRouteWithChildren =
-  LandingRoute._addFileChildren(LandingRouteChildren)
-
 interface PublicRouteChildren {
   PublicLoginRoute: typeof PublicLoginRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+  PublicAppsSlugRoute: typeof PublicAppsSlugRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
   PublicLoginRoute: PublicLoginRoute,
+  PublicIndexRoute: PublicIndexRoute,
+  PublicAppsSlugRoute: PublicAppsSlugRoute,
 }
 
 const PublicRouteWithChildren =
@@ -166,7 +161,6 @@ const PublicRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   AuthedRoute: AuthedRouteWithChildren,
-  LandingRoute: LandingRouteWithChildren,
   PublicRoute: PublicRouteWithChildren,
 }
 export const routeTree = rootRouteImport

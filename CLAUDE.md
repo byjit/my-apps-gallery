@@ -1,3 +1,12 @@
+# Overview
+This is a apps gallery that holds my products + free lead generation tools. ( my = Jit's)
+
+It works something like this. So it will have all my application and tools present in a grid format. Each with their image, title, description, category, date built, and a link to the application. ( I would prefer to have some kind of animation on that grid. Use shadcn default for the styling. ) 
+
+They can also click on the open button present at the bottom of the card to open a full page product description where they will be seeing the full product context and more screenshots and images, links , etc. 
+
+The whole app is public and anyone can access it.
+
 
 # Coding guidelines
 - Write elegant, clean, and maintainable code. 

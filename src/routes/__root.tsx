@@ -10,7 +10,7 @@ export const Route = createRootRoute({
 	component: () => (
 		<ThemeProvider
 			attribute="class"
-			defaultTheme="dark"
+			defaultTheme="light"
 			storageKey="vite-ui-theme"
 		>
 			<Outlet />

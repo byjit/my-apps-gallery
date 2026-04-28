@@ -1,4 +1,5 @@
 import { fileURLToPath, URL } from "node:url";
+import contentCollections from "@content-collections/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
@@ -15,6 +16,7 @@ export default defineConfig({
 		}),
 		viteReact(),
 		tailwindcss(),
+		contentCollections(),
 	],
 	resolve: {
 		alias: {
